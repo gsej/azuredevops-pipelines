@@ -1,3 +1,9 @@
+
+parameters:
+  - name: parameter1
+    type: string
+    default: 'default value for parameter1'
+
 stages:
 - stage: Stage1
   jobs:
@@ -5,5 +11,8 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - script: echo "Hello, Azure Pipelines!"
+    - script: | 
+    
+        echo "Hello, Azure Pipelines!"
+        echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
       displayName: 'Run echo script'
