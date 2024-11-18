@@ -2,16 +2,32 @@
 parameters:
   - name: parameter1
     type: string
-    default: 'default value for parameter1'
+    default: 'parameter1Value'
 
 stages:
 - stage: Stage1
   jobs:
-  - job: Job1
+  - job: Stage1Job1
     pool:
       vmImage: 'ubuntu-latest'
     steps:
     - script: | 
+
+        set -o xtrace
+    
+        echo "Hello, Azure Pipelines!"
+        echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
+      displayName: 'Run echo script'
+
+- stage: Stage2
+  jobs:
+  - job: Stage2Job1
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: | 
+
+        set -o xtrace
     
         echo "Hello, Azure Pipelines!"
         echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
