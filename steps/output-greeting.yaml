@@ -1,0 +1,11 @@
+parameters:
+  - name: greeting
+    type: string
+
+steps:
+  - script: |
+
+      echo ${{ parameters.greeting }}
+    failOnStderr: true
+    name: perform_greeting
+    displayName: Perform greeting

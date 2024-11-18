@@ -8,6 +8,13 @@ variables:
   - name: variable1
     value: 'variable1Value'
 
+
+# need to output something from a job and use it in the next job
+
+# output something from a stage and use it in another stage
+
+
+
 stages:
 - stage: Stage1
   jobs:
@@ -15,6 +22,9 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - template: steps/get-greeting.yaml
+      parameters:
+        userName: 'Professor Falken'
     - script: | 
 
         set -o xtrace
@@ -24,22 +34,31 @@ stages:
         echo 'This is the value of parameter1, accessed with the syntax $ (parameters.parameter1):'  $(parameters.parameter1)
 
         echo 'Variables available at runtime.'
-        echo 'This is the value of variable1 accessed with the syntax $ {{ variables.variable1 }}': ${{ variables.variable1 }}
-        echo 'This is the value of variable1 accessed with the syntax $ (variable1)': $(variable1)
+        echo 'This is the value of variable1 accessed with the template syntax $ {{ variables.variable1 }}': ${{ variables.variable1 }}
+        echo 'This is the value of variable1 accessed with the macro syntax $ (variable1)': $(variable1)
+
+ 
+        echo "Variable from the previous job, access with the syntax $ {{ variables.get_greeting.greeting }}:" ${{ variables.get_greeting.greeting }}
+        echo "Variable from the previous job, access with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)        
+        
       displayName: 'Run echo script'
+    - template: steps/output-greeting.yaml      
+      parameters:
+        greeting: $(get_greeting.greeting)
+        
 
-- stage: Stage2
-  jobs:
-  - job: Stage2Job1
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - script: | 
+# - stage: Stage2
+#   jobs:
+#   - job: Stage2Job1
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#     - script: | 
 
-        set -o xtrace
+#         set -o xtrace
     
-        echo "Hello, Azure Pipelines!"
-        echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
-      displayName: 'Run echo script'
+#         echo "Hello, Azure Pipelines!"
+#         echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
+#       displayName: 'Run echo script'
 
-- template: ./stages/stage-template.yaml
+# - template: ./stages/stage-template.yaml

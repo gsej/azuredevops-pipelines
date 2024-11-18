@@ -1,0 +1,13 @@
+parameters:
+  - name: userName
+    type: string
+
+steps:
+  - script: |
+
+      greeting="Hello, ${{ parameters.userName }}!"      
+      echo "##vso[task.setvariable variable=greeting;isoutput=true]${greeting}"
+      
+    failOnStderr: true
+    name: get_greeting
+    displayName: Get greeting
