@@ -19,11 +19,13 @@ stages:
 
         set -o xtrace
     
-        echo "Hello, Azure Pipelines!"
-        echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
+        echo 'Parameters are only available at template parse time, not at runtime.'
+        echo 'This is the value of parameter1, accessed with the syntax $ {{ parameters.parameter1 }}:'  ${{ parameters.parameter1 }}
+        echo 'This is the value of parameter1, accessed with the syntax $ (parameters.parameter1):'  $(parameters.parameter1)
 
-        echo "This is the value of variable1 (syntax1): ${{ variables.variable1 }}"
-        echo "This is the value of variable1 (syntax2): $(variable1)"
+        echo 'Variables available at runtime.'
+        echo 'This is the value of variable1 accessed with the syntax $ {{ variables.variable1 }}': ${{ variables.variable1 }}
+        echo 'This is the value of variable1 accessed with the syntax $ (variable1)': $(variable1)
       displayName: 'Run echo script'
 
 - stage: Stage2
