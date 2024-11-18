@@ -36,13 +36,28 @@ stages:
         echo 'Variables available at runtime.'
         echo 'This is the value of variable1 accessed with the template syntax $ {{ variables.variable1 }}': ${{ variables.variable1 }}
         echo 'This is the value of variable1 accessed with the macro syntax $ (variable1)': $(variable1)
-
  
-        echo "Variable from the previous job, access with the syntax $ {{ variables.get_greeting.greeting }}:" ${{ variables.get_greeting.greeting }}
-        echo "Variable from the previous job, access with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)        
+        echo "Variable from the previous task, accessed with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)        
         
       displayName: 'Run echo script'
     - template: steps/output-greeting.yaml      
+      parameters:
+        greeting: $(get_greeting.greeting)
+
+  - job: Stage1Job2
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps: 
+    - script: | 
+
+        set -o xtrace    
+      
+        echo 'Variables available at runtime.'     
+     
+        echo "Variable from the task in the previous job, accessed with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)
+        
+      displayName: 'Run echo script'
+    - template: steps/output-extra-greeting.yaml      
       parameters:
         greeting: $(get_greeting.greeting)
         
