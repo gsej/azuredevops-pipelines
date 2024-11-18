@@ -55,7 +55,7 @@ stages:
       
         echo 'Variables available at runtime.'     
      
-        echo "Variable from the task in the previous job, accessed with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)
+        #echo "Variable from the task in the previous job, accessed with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)
 
         echo "Greeting from the previous job2: $[ dependencies.Stage1Job1.get_greeting.outputs['greeting'] ]"
         
