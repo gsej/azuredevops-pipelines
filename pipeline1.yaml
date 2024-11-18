@@ -57,7 +57,7 @@ stages:
      
         echo "Variable from the task in the previous job, accessed with the syntax $ {get_greeting.greeting):" $(get_greeting.greeting)
 
-        echo "Greeting from the previous job2: $[ Stage1Job1.get_greeting.greeting ]"
+        echo "Greeting from the previous job2: $[ dependencies.Stage1Job1.get_greeting.greeting ]"
         
       displayName: 'Run echo script'
       # - template: steps/output-extra-greeting.yaml      
