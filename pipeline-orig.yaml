@@ -1,0 +1,18 @@
+parameters:
+- name: people
+  type: object
+  default: 
+  - adam
+  - eve
+  - cain
+
+stages:
+  - stage: GreetPeople
+    jobs:
+      - job: Greet
+        steps:
+        - ${{ each person in parameters.people }}:
+          - template: greeting.yaml
+            parameters: 
+                person: ${{ person }}
+       

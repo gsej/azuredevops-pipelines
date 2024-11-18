@@ -1,0 +1,13 @@
+ 
+parameters:
+   name: person
+   type: string
+   default: world
+
+
+steps:
+- script: |
+    set -o xtrace
+    echo hello "${{ parameters.person }}"
+  # env:
+  #   PERSON: ${{ parameters.person }}

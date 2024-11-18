@@ -1,0 +1,9 @@
+stages:
+- stage: Stage1
+  jobs:
+  - job: Job1
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - script: echo "Hello, Azure Pipelines!"
+      displayName: 'Run echo script'
