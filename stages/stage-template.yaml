@@ -1,0 +1,18 @@
+parameters:
+  - name: parameter1
+    type: string
+    default: 'Hello, World!'
+
+stages:
+  - stage: StageTemplate1
+    jobs:
+      - job: StageTemplate1Job1
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - script: |
+          
+                echo 'This is the value of parameter parameter1, accessed with the syntax $ {{ parameters.parameter1 }}:'  ${{ parameters.parameter1 }}
+                echo 'This is the value of parameter1, accessed with the syntax $ (parameters.parameter1):'  $(parameters.parameter1)
+          
+            displayName: 'Print Message'

@@ -41,3 +41,5 @@ stages:
         echo "Hello, Azure Pipelines!"
         echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
       displayName: 'Run echo script'
+
+- template: ./stages/stage-template.yaml
