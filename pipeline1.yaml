@@ -4,6 +4,10 @@ parameters:
     type: string
     default: 'parameter1Value'
 
+variables:
+  - name: variable1
+    value: 'variable1Value'
+
 stages:
 - stage: Stage1
   jobs:
@@ -17,6 +21,9 @@ stages:
     
         echo "Hello, Azure Pipelines!"
         echo "This is the value of parameter1: ${{ parameters.parameter1 }}"
+
+        echo "This is the value of variable1 (syntax1): ${{ variables.variable1 }}"
+        echo "This is the value of variable1 (syntax2): $(variable1)"
       displayName: 'Run echo script'
 
 - stage: Stage2
